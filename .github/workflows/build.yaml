@@ -10,6 +10,7 @@ on:
 env:
   REACT_APP_STRAPI_URL: ${{ secrets.STRAPI_URL }}
   REACT_APP_STORE_SLUG: ${{ secrets.STORE_SLUG }}
+  REACT_APP_POSTHOG_KEY: ${{ secrets.POSTHOG_ID }}
 
 permissions:
   contents: write

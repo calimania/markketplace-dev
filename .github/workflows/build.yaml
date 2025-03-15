@@ -10,6 +10,12 @@ env:
   REACT_APP_STRAPI_URL: ${{ secrets.STRAPI_URL }}
   REACT_APP_STORE_SLUG: ${{ secrets.STORE_SLUG }}
 
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   build:
     runs-on: ubuntu-latest

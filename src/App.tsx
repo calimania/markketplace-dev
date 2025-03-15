@@ -1,8 +1,21 @@
-import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { useEffect } from 'react';
+
+import { StrapiClient } from './api/api.strapi';
 
 function App() {
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const client = new StrapiClient();
+      const result = await client.getStore();
+      console.log(result);
+    }
+
+    fetchData();
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">

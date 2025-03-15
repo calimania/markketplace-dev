@@ -11,7 +11,6 @@ env:
   REACT_APP_STRAPI_URL: ${{ secrets.STRAPI_URL }}
   REACT_APP_STORE_SLUG: ${{ secrets.STORE_SLUG }}
 
-
 permissions:
   contents: write
   pages: write
@@ -35,22 +34,23 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: github-pages-${{ github.run_id }}
           path: ./build
-          retention-days: 1
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     permissions:
-      pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
+      pages: write
+      id-token: write
     environment:
-      name: github-pages-${{ github.run_id }}
+      name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages

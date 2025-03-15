@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": false,
   "license": "SEE LICENSE IN LICENSE",
-  "homepage": "https://landing.markket.place",
+  "homepage": "https://dev.markket.place",
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@mantine/carousel": "^7.17.2",

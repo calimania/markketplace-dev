@@ -1,16 +1,19 @@
 import logo from './logo.svg';
 import './App.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { StrapiClient } from './api/api.strapi';
 
+
 function App() {
+  const [store, setStore] = useState<any>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       const client = new StrapiClient();
       const result = await client.getStore();
-      console.log(result);
+      const store = result?.data?.[0]
+      setStore(store);
     }
 
     fetchData();
@@ -21,7 +24,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.tsx</code> and save to reload.
+          {store ? store.title : 'Loading...'}
         </p>
         <a
           className="App-link"

@@ -1,6 +1,12 @@
-# Getting Started with Create React App
+# Getting Started with Markket React
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+Created to offer an easy example to fork or inspire other markket clients & extensions
+
+It plans to offer a simple landing page that reads a `Store`, `Pages`, `Products`, `Events`, `Albums`
+
+For aspiring founders, community events, and professionals - it offers an alternative that is easy to use and free to deploy
 
 ## Available Scripts
 
@@ -44,3 +50,15 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## Custom domains
+
+Deploy using github pages, after forking to your account
+
+[Change your settings and connect your domain](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site)
+
+## Markket
+
+Open source online ecosystem
+
+[markketplace developers](https://de.markket.place/dev)

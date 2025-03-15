@@ -21,12 +21,6 @@ interface EnhancedFetchOptions extends Omit<FetchOptions, 'filters'> {
   };
 };
 
-type uploadAvatarOptions = {
-  id: number;
-  model?: string;
-  field?: string;
-};
-
 export class StrapiClient {
   private baseUrl: string;
   private storeSlug: string;

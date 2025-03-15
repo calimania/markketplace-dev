@@ -3,24 +3,19 @@ import { Store } from './api/store';
 import { StrapiClient } from './api/api.strapi';
 import {
   Container,
-  Title,
-  Image,
   Text,
-  Stack,
-  Paper,
-  Group,
-  Button,
   MantineProvider,
   Skeleton
 } from '@mantine/core';
-import { IconWorld } from '@tabler/icons-react';
-import ReactMarkdown from 'react-markdown';
 import '@mantine/core/styles.css';
 import './styles/blocks.scss';
 import { Page } from './api/page';
-import PageContent from './components/page.content';
 import config from './config';
 import { PostHogProvider } from 'posthog-js/react'
+
+import HomePage from './components/home.page';
+
+const POSTHOG_API_KEY = process.env.REACT_APP_POSTHOG_KEY as string;
 
 /**
  * Landing page component
@@ -81,67 +76,21 @@ function App() {
     );
   }
 
+  if (POSTHOG_API_KEY) {
+    return (
+      <PostHogProvider apiKey={POSTHOG_API_KEY}>
+        <MantineProvider>
+          <HomePage homePage={homePage} store={store} />
+        </MantineProvider>
+      </PostHogProvider>
+    );
+  }
+
   return (
     <MantineProvider>
-      <PostHogProvider apiKey={process.env.REACT_APP_POSTHOG_KEY as string}>
-        <>
-          <Container size="md" py="xl" id={window.location.hash?.replace('#', '')}>
-            <Paper shadow="md" radius="md" p="xl" mb="xl">
-              <Stack align="center">
-                {store.Logo && (
-                  <Image
-                    src={store.Logo.formats?.small?.url || store.Logo.url}
-                    alt={store.title}
-                    width={200}
-                    height={200}
-                    fit="contain"
-                  />
-                )}
-
-                <Title order={1}>
-                  {store.title}
-                </Title>
-
-                {store.Description && (
-                  <div className="blocks-content">
-                    <ReactMarkdown >
-                      {store.Description}
-                    </ReactMarkdown>
-                  </div>
-                )}
-
-                {store.URLS && store.URLS.length > 0 && (
-                  <Group mt="md">
-                    {store.URLS.map((url) => (
-                      <Button
-                        key={url.id}
-                        component="a"
-                        href={url.URL}
-                        target="_blank"
-                        variant="light"
-                      >
-                        <IconWorld size={18} />{` `}
-                        {url.Label}
-                      </Button>
-                    ))}
-                  </Group>
-                )}
-              </Stack>
-            </Paper>
-
-          </Container >
-
-          <Container>
-            <div className="blocks-content">
-              {homePage && (
-                <PageContent params={{ page: homePage }} />
-              )}
-            </div>
-          </Container>
-        </>
-      </PostHogProvider>
-    </MantineProvider >
-  );
-}
+      <HomePage homePage={homePage} store={store} />
+    </MantineProvider>
+  )
+};
 
 export default App;

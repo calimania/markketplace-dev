@@ -16,23 +16,34 @@ import {
 import { IconWorld } from '@tabler/icons-react';
 import ReactMarkdown from 'react-markdown';
 import '@mantine/core/styles.css';
+import './styles/blocks.scss';
 import { Page } from './api/page';
 import PageContent from './components/page.content';
+import config from './config';
 
-
+/**
+ * Landing page component
+ * - Displays store basics, and home page content
+ *
+ * @returns React.ReactElement
+ */
 function App() {
   const [store, setStore] = useState<Store | null>(null);
   const [homePage, setHomePage] = useState<Page | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const pathSegments = window?.location?.hash?.replace('#/', '')?.split('/') || [];
+    const store_slug = pathSegments[0] || config.store_slug;
+    const page_slug = pathSegments[1] || 'home';
+
     const fetchData = async () => {
       try {
         const client = new StrapiClient();
-        const result = await client.getStore();
+        const result = await client.getStore(store_slug);
         const store = result?.data?.[0];
 
-        const pageresult = await client.getPage('home');
+        const pageresult = await client.getPage(page_slug, store_slug);
         const homePage = pageresult?.data?.[0];
 
         setHomePage(homePage);
@@ -71,7 +82,7 @@ function App() {
 
   return (
     <MantineProvider >
-      <Container size="md" py="xl" >
+      <Container size="md" py="xl" id={window.location.hash?.replace('#', '')}>
         <Paper shadow="md" radius="md" p="xl" mb="xl">
           <Stack align="center">
             {store.Logo && (
@@ -89,11 +100,11 @@ function App() {
             </Title>
 
             {store.Description && (
-              <Text size="lg" maw={600}>
-                <ReactMarkdown>
+              <div className="blocks-content">
+                <ReactMarkdown >
                   {store.Description}
                 </ReactMarkdown>
-              </Text>
+              </div>
             )}
 
             {store.URLS && store.URLS.length > 0 && (
@@ -118,9 +129,11 @@ function App() {
       </Container >
 
       <Container>
-        {homePage && (
-          <PageContent params={{ page: homePage }} />
-        )}
+        <div className="blocks-content">
+          {homePage && (
+            <PageContent params={{ page: homePage }} />
+          )}
+        </div>
       </Container>
     </MantineProvider >
   );

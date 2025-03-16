@@ -11,6 +11,7 @@ import {
   AspectRatio,
 } from '@mantine/core';
 import { IconUsers } from '@tabler/icons-react';
+import config from '../config';
 
 interface AlbumCardProps {
   album: Album;
@@ -25,7 +26,7 @@ interface AlbumsProps {
 function AlbumCard({ album, store_slug }: AlbumCardProps) {
 
   return (
-    <a href={`#/${store_slug}/${album.slug}`} style={{ textDecoration: 'none' }}>
+    <a href={new URL(`/store/${store_slug}/${album.slug}`, config.markket_url).toString()} style={{ textDecoration: 'none' }}>
       <Card
         shadow="sm"
         padding="lg"

@@ -1,7 +1,6 @@
 import React from 'react'
 import {
-  Container, Paper, Stack, Image, Title, Button, Box, Overlay,
-  Group
+  Container, Paper, Stack, Title, Button, Box, Overlay, Group
 } from '@mantine/core'
 import { IconHeartbeat } from '@tabler/icons-react'
 import ReactMarkdown from 'react-markdown'

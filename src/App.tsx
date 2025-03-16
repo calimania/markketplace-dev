@@ -29,7 +29,7 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const pathSegments = window?.location?.hash?.replace('#/', '')?.split('/') || [];
+    const pathSegments = window?.location?.search?.replace('?', '')?.split('/') || [];
     const store_slug = pathSegments[0] || config.store_slug;
     const page_slug = pathSegments[1] || 'home';
 

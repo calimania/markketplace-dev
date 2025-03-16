@@ -5,16 +5,17 @@ import ReactMarkdown from 'react-markdown'
 import PageContent  from './page.content'
 import { Page } from '../api/page'
 import { Store } from '../api/store'
+import Albums from './albums.grid'
+import { Album } from '../api/album'
 
 interface PageProps {
-  homePage: Page | null;
+  page: Page | null;
   store: Store | null;
 }
 
 
-const PageComponent = ({homePage, store} : PageProps) => {
+const PageComponent = ({ page, store }: PageProps) => {
   return (
-    <>
           <Container size="md" py="xl" id={window.location.hash?.replace('#', '')}>
             <Paper shadow="md" radius="md" p="xl" mb="xl">
               <Stack align="center">
@@ -57,18 +58,15 @@ const PageComponent = ({homePage, store} : PageProps) => {
                   </Group>
                 )}
               </Stack>
-            </Paper>
+      </Paper>
+      {page && (
+        <Paper className='blocks-content' shadow="md" radius="md" p="xl" mb="xl">
+          <PageContent params={{ page: page }} />
+        </Paper>
+      )}
 
-          </Container >
-
-          <Container>
-            <div className="blocks-content">
-              {homePage && (
-                <PageContent params={{ page: homePage }} />
-              )}
-            </div>
-          </Container>
-        </>
+      <Albums store_slug={store?.slug as string} albums={page?.albums as Album[]} />
+    </Container >
   )
 };
 

@@ -80,7 +80,7 @@ function App() {
     return (
       <PostHogProvider apiKey={POSTHOG_API_KEY}>
         <MantineProvider>
-          <HomePage homePage={homePage} store={store} />
+          <HomePage page={homePage} store={store} />
         </MantineProvider>
       </PostHogProvider>
     );
@@ -88,7 +88,7 @@ function App() {
 
   return (
     <MantineProvider>
-      <HomePage homePage={homePage} store={store} />
+      <HomePage page={homePage} store={store} />
     </MantineProvider>
   )
 };
